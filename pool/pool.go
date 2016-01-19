@@ -5,7 +5,6 @@
 package pool
 
 import (
-    "log"
     "sync"
 )
 
@@ -31,7 +30,6 @@ func (this *Pool) AddJob (j interface{}) {
 }
 
 func (this *Pool) launchRoutine () {
-    log.Println("Routine")
     for {
         this.jobMutex.Lock()
         var job interface{}
@@ -46,7 +44,6 @@ func (this *Pool) launchRoutine () {
         }
         this.handler(job)
     }
-    log.Println("Leaving routine")    
 }
 
 func (this *Pool) Start () error {
@@ -59,6 +56,5 @@ func (this *Pool) Start () error {
         }()
     }
     wg.Wait()
-    log.Println("Done")
     return nil
 }
